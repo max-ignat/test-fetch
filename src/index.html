@@ -1,14 +1,47 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Page title</title>
-    <link rel="stylesheet" href="./sass/index.scss" />
-    <script type="module" src="./index.js"></script>
-  </head>
-  <body>
-    <!-- ❗️❗️❗️ Add partials like so for every page -->
-    <include src="./partials/example.html"></include>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page title</title>
+  <!-- <link rel="stylesheet" href="./sass/index.scss" /> -->
+
+</head>
+
+<body>
+  <style>
+    .new-form {
+      margin-top: 15px;
+      margin-left: 15px;
+    }
+
+    .news-loader {
+      display: none;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .show {
+      display: block;
+    }
+  </style>
+
+
+  <form class="news-form">
+    <label>
+      <span> What`s looking for</span>
+      <input type="text" name="query">
+    </label>
+    <button class="news-submit" type="submit">Search</button>
+  </form>
+
+  <ul class="news-list">
+
+  </ul>
+
+  <p class="news-loader">loading...</p>
+  <script type="module" src="./index.js"></script>
+</body>
+
 </html>
