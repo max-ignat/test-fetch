@@ -1,3 +1,5 @@
+import axios from "axios";
+axios.defaults.baseURL = 'https://hn.algolia.com/api/v1/search';
 const getItemtemplate = ({ objectID, title, story_title, url }) => {
   return `<li class="news-item" data-id=${objectID}>
     <a href=${url} target="_blank" rel="nofollow noopener">${
@@ -6,7 +8,7 @@ const getItemtemplate = ({ objectID, title, story_title, url }) => {
   </li>`;
 };
 
-const URL = 'https://hn.algolia.com/api/v1/search';
+ 
 
 const refs = {
   form: document.querySelector('.news-form'),
@@ -40,24 +42,36 @@ const unlockForm = () => {
   refs.submitButton.removeAttribute('disabled');
 };
 
-const handleSubmit = e => {
+const handleSubmit = async (e) => {
   // const value = e.target.elements.query.value;
   const { value } = e.target.elements.query;
 
   e.preventDefault();
 
   showLoader();
-  lockForm();
-  fetch(`${URL}?query=${value}`)
-    .then(resp => resp.json())
-    .then(({ hits }) => {
-      items = hits;
-      render();
-    })
-    .finally(() => {
-      hideLoader();
-      unlockForm();
-    });
+    lockForm();
+
+try {
+     await axios
+      .get(`?query=${value}`)
+      .then(({data}) => data)
+      .then(({ hits }) => {
+        items = hits;
+        render();
+      })
+      .finally(() => {
+        hideLoader();
+        unlockForm();
+      });
+} catch (error) {
+    
+}
+
+
+    
+        
+//   fetch(`${URL}?query=${value}`)
+    
 };
 
 refs.form.addEventListener('submit', handleSubmit);
